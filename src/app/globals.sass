@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap')
+
+$text: white
+$blueButton: #003D7A
+$blueButtonHover: #003161
+$greenButton: #428271
+$greenButtonHover: #356558
+$bg: #1C3144
+$page: #121F2B
+$block: #182A3A
+
+*
+    margin: 0
+    padding: 0
+    text-decoration: none
+    font-family: 'Open Sans', sans-serif
+    transition: all 0.2s
+    color: $text
+
+.heading
+    font-size: 35px
+    margin-bottom: 20px
+
+.error
+    color: red
+    font-size: 20px
+    margin-top: 15px
+
+.flex
+    display: flex
+    flex-wrap: wrap
+
+a:hover
+    color: #cccccc
+
+body
+    background-color: $bg
+    padding: 10px 20%
+
+.block
+    border-radius: 8px
+    background-color: $block
+    padding: 20px
+
+main
+    min-height: 100vh
+    background-color: #121F2B
+    border-radius: 8px
+    margin-top: 10px
+    padding: 20px
+
+.blueButton, .greenButton 
+    padding: 5px 20px
+    cursor: pointer
+    font-size: 18px
+    border-radius: 5px
+    border: 0
+    color: white
+
+.blueButton
+    background-color: $blueButton
+
+.blueButton:hover
+    background-color: $blueButtonHover
+
+.greenButton
+    background-color: $greenButton
+
+.greenButton:hover
+    background-color: $greenButtonHover
+    
+input, textarea
+    width: 100%
+    margin-bottom: 10px
+    border-radius: 5px
+    font-size: 18px
+    background-color: #121F2B
+    padding-left: 5px
+    border: 0
+
+input::placeholder, textarea::placeholder
+    font-size: 18px
+    color: #989898
+
+input
+    height: 40px
+
+textarea
+    height: 200px
+
+    
