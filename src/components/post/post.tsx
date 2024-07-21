@@ -1,12 +1,12 @@
 import React from 'react'
 import cl from './style.module.sass'
 
-const Post = () => {
+const Post = ({id, text}: {id: number, text: string}) => {
     return (
         <div className={cl.post}>
-            <img src="https://gas-kvas.com/uploads/posts/2023-02/1675484237_gas-kvas-com-p-kartinki-dlya-fonovogo-risunka-raboch-stol-15.jpg" alt="" />
+            <img src={`http://localhost:8000/posts/getImage/${id}`} alt="" />
             <div>
-                <p className={cl.caption}>Описание поста</p>
+                <p className={cl.caption}>{text}</p>
             </div>
         </div>
     )
