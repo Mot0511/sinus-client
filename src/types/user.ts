@@ -4,6 +4,7 @@ export default interface UserRead {
     name: string
     email: string
     description: string
+    friends: string
     is_active: number
     is_superuser: number
     is_verified: number

@@ -5,7 +5,7 @@ import React, { useState } from 'react'
 
 const ResetPassword = () => {
 
-    const [email, setEmail] = useState<string>('suvorov.matvej9@gmail.com')
+    const [email, setEmail] = useState<string>('')
     const [confirmForm, setConfirmForm] = useState<boolean>(false)
     const [newPasswordForm, setNewPasswordForm] = useState<boolean>(false)
 

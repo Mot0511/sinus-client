@@ -5,6 +5,8 @@ $blueButton: #003D7A
 $blueButtonHover: #003161
 $greenButton: #428271
 $greenButtonHover: #356558
+$redButton: #c10000
+$redButtonHover: #a10000
 $bg: #1C3144
 $page: #121F2B
 $block: #182A3A
@@ -49,13 +51,19 @@ main
     margin-top: 10px
     padding: 20px
 
-.blueButton, .greenButton 
+.blueButton, .greenButton, .redButton
     padding: 5px 20px
     cursor: pointer
-    font-size: 18px
+    font-size: 16px
     border-radius: 5px
     border: 0
     color: white
+
+.redButton
+    background-color: $redButton
+
+.redButton:hover
+    background-color: $redButtonHover
 
 .blueButton
     background-color: $blueButton
@@ -88,4 +96,8 @@ input
 textarea
     height: 200px
 
-    
+@media (max-width: 1260px)
+    body
+        padding: 10px 10%
+    .blueButton, .greenButton, .redButton
+        font-size: 1.25vw

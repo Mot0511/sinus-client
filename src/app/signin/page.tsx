@@ -13,8 +13,8 @@ const Component = () => {
 
     const [cookies, setCookie, removeCookie] = useCookies();
 
-    const [email, setEmail] = useState<string>('suvorov.matvej9@gmail.com')
-    const [password, setPasword] = useState<string>('motik0511')
+    const [email, setEmail] = useState<string>('')
+    const [password, setPasword] = useState<string>('')
 
     const [error, setError] = useState<string>()
     const [isLoading, setIsLoading] = useState<boolean>()
@@ -32,7 +32,9 @@ const Component = () => {
             .then(TOKEN => {
                 getCurrentUser(TOKEN)
                     .then((user) =>  {
-                        setCookie('TOKEN', TOKEN)
+                        setCookie('TOKEN', TOKEN, {
+                            maxAge: 31536000
+                        })
                         router.push(`/profile/${user.id}`);
                         setIsLoading(false) 
                     })

@@ -15,6 +15,7 @@ const Header = () => {
 
     const router = useRouter()
 
+    const [isLoading, setIsLoading] = useState<boolean>(false)
     const [isLogined, setIsLogined] = useState<boolean>(false)
     const [id, setId] = useState<string | undefined>()
 
@@ -39,6 +40,7 @@ const Header = () => {
             <h1><Link href={'/'}>Sinus</Link></h1>
             <ul className={cl.menu}>
                 <li><Link href={'/'}>Новости</Link></li>
+                <li><Link href={'/users'}>Все пользователи</Link></li>
                 <li><Link href={'/chats'}>Мои чаты</Link></li>
                 <li><Link href={id ? `/profile/${id}` : '/signin'}>Моя страница</Link></li>
             </ul>

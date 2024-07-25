@@ -11,7 +11,7 @@ const Component = ({params}: {params: {id: string}}) => {
 
     const userID = params.id
     const fileRef = useRef(null)
-    const [text, setText] = useState<string>('Описание поста')
+    const [text, setText] = useState<string>('')
     const [image, setImage] = useState<string>('')
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const router = useRouter()
@@ -45,6 +45,7 @@ const Component = ({params}: {params: {id: string}}) => {
                     <input type="file" name="file" onChange={loadImg} ref={fileRef} accept="image/*" hidden />		
                     <span className='blueButton'>Загрузить картинку</span>
  		        </label>
+                
                 <br />
                 <button className='greenButton' onClick={post} style={{marginTop: '40px'}}>{isLoading ? <Loading /> : 'Опубликовать'}</button>
             </div>

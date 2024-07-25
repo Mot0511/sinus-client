@@ -15,13 +15,13 @@ const Component = () => {
 
     const [cookies, setCookie, removeCookie] = useCookies();
 
-    const [username, setUsername] = useState<string>('Mot0511')
-    const [name, setName] = useState<string>('Матвей')
-    const [surname, setSurname] = useState<string>('Суворов')
-    const [email, setEmail] = useState<string>('suvorov.matvej9@gmail.com')
-    const [description, setDescription] = useState<string>('Desc')
-    const [password, setPasword] = useState<string>('motik0511')
-    const [repeatPassword, setRepeatPassword] = useState<string>('motik0511')
+    const [username, setUsername] = useState<string>('')
+    const [name, setName] = useState<string>('')
+    const [surname, setSurname] = useState<string>('')
+    const [email, setEmail] = useState<string>('')
+    const [description, setDescription] = useState<string>('')
+    const [password, setPasword] = useState<string>('')
+    const [repeatPassword, setRepeatPassword] = useState<string>('')
 
     const [error, setError] = useState<string>()
     const [isLoading, setIsLoading] = useState<boolean>()
