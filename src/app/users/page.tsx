@@ -1,7 +1,7 @@
 'use client'
 
 import Loading from '@/components/loading/loading'
-import Person from '@/components/person/chat'
+import Person from '@/components/person/person'
 import getUsers from '@/services/getUsers'
 import UserRead from '@/types/user'
 import Link from 'next/link'
