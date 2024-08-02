@@ -18,6 +18,7 @@ import updateProfile from '@/services/updateProfile'
 import deletePost from '@/services/deletePost'
 import removeFriend from '@/services/removeFriend'
 import addFriend from '@/services/addFriend'
+import addChat from '@/services/messages/addChat'
 
 const Profile = ({params}: {params: {id: string}}) => {
 
@@ -38,28 +39,25 @@ const Profile = ({params}: {params: {id: string}}) => {
 
     useEffect(() => {
         setIsLoading(true)
-        login('suvorov.matvej9@gmail.com', 'motik0511')
-            .then(superuser_token => {
-                getUser(superuser_token, id)
-                    .then(user => {
-                        setUser(user)
-                        setFriendsCount(JSON.parse(user.friends).length)
+        getUser(id)
+            .then(user => {
+                setUser(user)
+                setFriendsCount(JSON.parse(user.friends).length)
 
-                        if (TOKEN) {
-                            getCurrentUser(TOKEN)
-                                .then(current_user => {
-                                    if (user.id == current_user.id){
-                                        setIsOwner(true)
-                                    }
-                                })
-                        }
-                        setIsLoading(false)
-                    })
-                
-                getPosts(id)
-                    .then(posts => {
-                        setPosts(posts)
-                    })
+                if (TOKEN) {
+                    getCurrentUser(TOKEN)
+                        .then(current_user => {
+                            if (user.id == current_user.id){
+                                setIsOwner(true)
+                            }
+                        })
+                }
+                setIsLoading(false)
+            })
+        
+        getPosts(id)
+            .then(posts => {
+                setPosts(posts)
             })
     }, [])
 
@@ -97,6 +95,16 @@ const Profile = ({params}: {params: {id: string}}) => {
             })
     }
 
+    const sendMessage = () => {
+        getCurrentUser(TOKEN)
+            .then(user => {
+                addChat(user.id, id)
+                    .then(chat_id => {
+                        router.push(`/chats/${chat_id}`)
+                    })
+            })
+    }
+
     return (
         <div className={cl.profile}>
             {
@@ -119,9 +127,14 @@ const Profile = ({params}: {params: {id: string}}) => {
                                                 : <button className="blueButton" onClick={() => setIsEditing(true)} style={{marginTop: '10px'}}>Изменить профиль</button>
                                         }
                                     </>
-                                    : isFriend
-                                        ? <button className='redButton' onClick={changeFriend}>Удалить из друзей</button>
-                                        : <button className='greenButton' onClick={changeFriend}>Добавить в друзья</button>
+                                    : <>
+                                        <button className='greenButton' onClick={sendMessage} style={{marginBottom: '5px'}}>Написать сообщение</button>
+                                        {
+                                            isFriend
+                                                ? <button className='redButton' onClick={changeFriend}>Удалить из друзей</button>
+                                                : <button className='greenButton' onClick={changeFriend}>Добавить в друзья</button>
+                                        }
+                                    </>
                                          
                             }
                             

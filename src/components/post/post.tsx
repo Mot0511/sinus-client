@@ -11,12 +11,9 @@ const Post = ({id, text, isDeleteAble, onDelete}: {id: number, text: string, isD
     useEffect(() => {
         getOnePost(id)
             .then(res => {
-                login('suvorov.matvej9@gmail.com', 'motik0511')
-                    .then(superuser_token => {
-                        getUser(superuser_token, res.user)
-                            .then(res => {
-                                setUserName(res.username)
-                            })
+                getUser(res.user)
+                    .then(res => {
+                        setUserName(res.username)
                     })
             })
     }, [])

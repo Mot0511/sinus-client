@@ -1,5 +1,3 @@
-export default interface Chat{
-    id: number
-    user1: string
-    user2: string
-}
+import UserRead from "./user";
+
+type Chat = [number, UserRead]
