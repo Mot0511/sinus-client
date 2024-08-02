@@ -34,11 +34,10 @@ const Chat = ({params}: {params: {id: string}}) => {
     const [isInOnline, setIsInOnline] = useState<boolean>(false)
     const [isConnected, setIsConnected] = useState<boolean>(false)
 
-    const connect = (username: string) => {
-        const ws = new W3CWebSocket(`ws://localhost:8000/messages/connect/${username}/${chat_id}`)
-        ws.onmessage = (e) => {
+    useEffect(() => {
+        if (lastMessage !== null) {
             console.log('New ws message')
-            const message = JSON.parse(e.data)
+            const message = JSON.parse(lastMessage.data)
             switch (message.type){
                 case 'new_message':
                     const content = JSON.parse(message.content)
@@ -60,13 +59,12 @@ const Chat = ({params}: {params: {id: string}}) => {
                     break
             }
         }
-        setWs(ws)
-    }
+      }, [lastMessage]);
 
     useEffect(() => {
         getCurrentUser(TOKEN)
             .then(user => {
-                setWsUrl()
+                setWsUrl(`ws://localhost:8000/messages/connect/${user.username}/${chat_id}`)
                 
                 getChat(chat_id)    
                     .then(chat => {
@@ -89,11 +87,10 @@ const Chat = ({params}: {params: {id: string}}) => {
     
         scrollBottom()
 
-        return () => ws?.close();
     }, [])
 
     const send_message = () => {
-        ws?.send(JSON.stringify({
+        sendMessage(JSON.stringify({
             type: 'send',
             message: {
                 chat: chat_id,
@@ -120,7 +117,7 @@ const Chat = ({params}: {params: {id: string}}) => {
             <div className={cl.chat + ' block'}>
                 <div className={cl.messages} id={'messages'}>
                     {
-                        messages.map(message => <Message mess={{username: message.user, text: message.text}} />)
+                        messages.map(message => <Message mess={{username: message.user, text: message.text}} key={message.id} />)
                     }
                 </div>
                 <div className={cl.controls}>
