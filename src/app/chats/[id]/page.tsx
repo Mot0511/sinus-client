@@ -12,7 +12,8 @@ import MessageType from '@/types/message'
 import getMessages from '@/services/messages/getMessages'
 import getChat from '@/services/messages/getChat'
 import getUser from '@/services/getUser'
-import useWebSocket, { ReadyState } from 'react-use-websocket';
+import { w3cwebsocket as W3CWebSocket } from 'websocket';
+import { WiSprinkle } from 'react-icons/wi'
 
 
 const Chat = ({params}: {params: {id: string}}) => {
@@ -21,10 +22,7 @@ const Chat = ({params}: {params: {id: string}}) => {
     const TOKEN = cookies.TOKEN
     const chat_id = params.id
 
-    // const [ws, setWs] = useState<W3CWebSocket>()
-    const [wsUrl, setWsUrl] = useState<string>('')
-    const { sendMessage, lastMessage, readyState } = useWebSocket(wsUrl);
-    
+    const [ws, setWs] = useState<W3CWebSocket>()
     const [companion, setCompanion] = useState<UserRead>()
     const [messages, setMessages] = useState<MessageType[]>([])
     const [message, setMessage] = useState<string>('')
@@ -33,24 +31,15 @@ const Chat = ({params}: {params: {id: string}}) => {
     const [isInOnline, setIsInOnline] = useState<boolean>(false)
     const [isConnected, setIsConnected] = useState<boolean>(false)
 
-    useEffect(() => {
-        if (lastMessage !== null) {
+    const connect = (username: string) => {
+        const ws = new W3CWebSocket(`ws://localhost:8000/messages/connect/${username}/${chat_id}`)
+        ws.onmessage = (e) => {
             console.log('New ws message')
             const message = JSON.parse(e.data)
             switch (message.type){
                 case 'new_message':
                     const content = JSON.parse(message.content)
                     setMessages(prev => [...prev, content])
-                    // setMessages(prev => {
-                    //     const new_messages = []
-                    //     for (let i = 0; i < prev.length; i++){
-                    //         console.log(prev)
-                    //         if (prev[i].id != prev[i - 1].id){
-                    //             new_messages.push(prev[i])
-                    //         }
-                    //     }
-                    //     return new_messages
-                    // })
                     scrollBottom()
                     break
 
@@ -68,15 +57,14 @@ const Chat = ({params}: {params: {id: string}}) => {
                     break
             }
         }
-      }, [lastMessage]);
-
-   
+        setWs(ws)
+    }
 
     useEffect(() => {
         getCurrentUser(TOKEN)
             .then(user => {
-                // connect(user.username)
-                setWsUrl(`ws://localhost:8000/messages/connect/${user.username}/${chat_id}`)
+                connect(user.username)
+                
                 getChat(chat_id)    
                     .then(chat => {
                         if (chat.user1 == user.id){
