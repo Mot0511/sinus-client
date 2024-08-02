@@ -13,7 +13,7 @@ import getMessages from '@/services/messages/getMessages'
 import getChat from '@/services/messages/getChat'
 import getUser from '@/services/getUser'
 import { w3cwebsocket as W3CWebSocket } from 'websocket';
-import { WiSprinkle } from 'react-icons/wi'
+import useWebSocket, { ReadyState } from 'react-use-websocket';
 
 
 const Chat = ({params}: {params: {id: string}}) => {
@@ -22,7 +22,10 @@ const Chat = ({params}: {params: {id: string}}) => {
     const TOKEN = cookies.TOKEN
     const chat_id = params.id
 
-    const [ws, setWs] = useState<W3CWebSocket>()
+    // const [ws, setWs] = useState<W3CWebSocket>()
+    const [wsUrl, setWsUrl] = useState<string>('')
+    const { sendMessage, lastMessage, readyState } = useWebSocket(wsUrl);
+
     const [companion, setCompanion] = useState<UserRead>()
     const [messages, setMessages] = useState<MessageType[]>([])
     const [message, setMessage] = useState<string>('')
@@ -63,7 +66,7 @@ const Chat = ({params}: {params: {id: string}}) => {
     useEffect(() => {
         getCurrentUser(TOKEN)
             .then(user => {
-                connect(user.username)
+                setWsUrl()
                 
                 getChat(chat_id)    
                     .then(chat => {
