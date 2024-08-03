@@ -1,11 +1,18 @@
 import React from 'react'
 import cl from './style.module.sass'
+import Message from '@/types/message'
 
-const Message = ({mess}: {mess: {username: string, text: string}}) => {
+const Message = ({mess, myUsername, onDelete}: {mess: Message, myUsername: string, onDelete: (mess_id: number) => void}) => {
+
+
+
     return (
         <div className={cl.message}>
-            <p className={cl.username}>@{mess.username}</p>
+            <p className={cl.username} style={{fontWeight: (myUsername == mess.user ? 'bold' : 'normal')}}>@{mess.user}</p>
             <p className={cl.text}>{mess.text}</p>
+            {
+                myUsername == mess.user && <a className={cl.deleteBtn} onClick={() => onDelete(mess.id)}>Удалить</a>
+            }
         </div>
     )
 }

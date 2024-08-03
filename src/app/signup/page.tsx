@@ -39,7 +39,8 @@ const Component = () => {
                 "is_verified": false,
                 "username": username,
                 "name": `${name} ${surname}`,
-                "description": description
+                "description": description,
+                "friends": "[]"
             }).then(res => {
                 login(email, password)
                     .then(TOKEN => {

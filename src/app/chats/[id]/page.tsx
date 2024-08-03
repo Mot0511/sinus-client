@@ -30,13 +30,12 @@ const Chat = ({params}: {params: {id: string}}) => {
     const [messages, setMessages] = useState<MessageType[]>([])
     const [message, setMessage] = useState<string>('')
     const [currentUserId, setCurrentUserId] = useState<string>()
+    const [myUsername, setMyUsername] = useState<string>('')
 
     const [isInOnline, setIsInOnline] = useState<boolean>(false)
-    const [isConnected, setIsConnected] = useState<boolean>(false)
 
     useEffect(() => {
         if (lastMessage !== null) {
-            console.log('New ws message')
             const message = JSON.parse(lastMessage.data)
             switch (message.type){
                 case 'new_message':
@@ -46,7 +45,7 @@ const Chat = ({params}: {params: {id: string}}) => {
                     break
 
                 case 'remove_message':
-                    setMessages(messages.filter(mess => mess.id != message.id))
+                    setMessages(messages.filter(mess => mess.id != message.content))
                     scrollBottom()
                     break
                 
@@ -61,11 +60,13 @@ const Chat = ({params}: {params: {id: string}}) => {
         }
       }, [lastMessage]);
 
+    useEffect(() => scrollBottom(), [messages.length])
+
     useEffect(() => {
         getCurrentUser(TOKEN)
             .then(user => {
                 setWsUrl(`ws://localhost:8000/messages/connect/${user.username}/${chat_id}`)
-                
+                setMyUsername(user.username)
                 getChat(chat_id)    
                     .then(chat => {
                         if (chat.user1 == user.id){
@@ -83,22 +84,31 @@ const Chat = ({params}: {params: {id: string}}) => {
         getMessages(chat_id)
             .then(messages => {
                 setMessages(messages)
+                scrollBottom()
             })
-    
-        scrollBottom()
-
     }, [])
 
     const send_message = () => {
+        if (message) {
+            sendMessage(JSON.stringify({
+                type: 'send',
+                message: {
+                    chat: chat_id,
+                    user: currentUserId,
+                    text: message,
+                }
+            }))
+            setMessage('')
+        }
+    }
+
+    const delete_message = (mess_id: number) => {
         sendMessage(JSON.stringify({
-            type: 'send',
+            type: 'remove',
             message: {
-                chat: chat_id,
-                user: currentUserId,
-                text: message,
+                id: mess_id
             }
         }))
-        
     }
 
     const scrollBottom = () => {
@@ -117,11 +127,11 @@ const Chat = ({params}: {params: {id: string}}) => {
             <div className={cl.chat + ' block'}>
                 <div className={cl.messages} id={'messages'}>
                     {
-                        messages.map(message => <Message mess={{username: message.user, text: message.text}} key={message.id} />)
+                        messages.map(message => <Message mess={message} myUsername={myUsername} onDelete={delete_message} key={message.id} />)
                     }
                 </div>
                 <div className={cl.controls}>
-                    <input type="text" placeholder='Сообщение' value={message} onChange={e => setMessage(e.target.value)} />
+                    <input type="text" placeholder='Сообщение' value={message} onChange={e => setMessage(e.target.value)} onKeyDown={e => e.keyCode == 13 && send_message()} />
                     <button className='greenButton' onClick={send_message}>Отправить</button>
                 </div>
             </div>
