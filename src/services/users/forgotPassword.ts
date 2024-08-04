@@ -3,7 +3,7 @@ import axios from "axios"
 const forgotPassword = (email: string) => {
     return new Promise((resolve, reject) => {
 
-        axios.post('http://localhost:8000/auth/forgot-password', {
+        axios.post(`${process.env.NEXT_PUBLIC_BACKEND}/auth/forgot-password`, {
             email: email,
         })
             .then(res => {

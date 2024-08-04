@@ -2,7 +2,7 @@ import axios from "axios"
 
 const removeChat = (chat_id: number) => {
     return new Promise((resolve, reject) => {
-        axios.post(`http://localhost:8000/messages/removeChat/${chat_id}`)
+        axios.post(`${process.env.NEXT_PUBLIC_BACKEND}/messages/removeChat/${chat_id}`)
             .then(res => {
                 resolve(res.data)
             })

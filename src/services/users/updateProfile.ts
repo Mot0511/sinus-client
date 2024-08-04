@@ -3,7 +3,7 @@ import axios from "axios";
 
 const updateProfile = (data: {name: string | undefined, description: string | undefined}, TOKEN: string) => {
     return new Promise((resolve, reject) => {
-        axios.patch('http://localhost:8000/auth/me', {
+        axios.patch(`${process.env.NEXT_PUBLIC_BACKEND}/auth/me`, {
             ...data
         }, {
             headers: {
