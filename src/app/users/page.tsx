@@ -27,7 +27,7 @@ const Users = () => {
             {
                 isLoading
                     ? <Loading />
-                    : users?.map(user => <Link href={`/profile/${user.id}`}><Person user={user} /></Link>)
+                    : users?.map(user => <Link href={`/profile/${user.id}`} key={user.id}><Person user={user} /></Link>)
                 
             }
         </>

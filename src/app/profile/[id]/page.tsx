@@ -172,7 +172,7 @@ const Profile = ({params}: {params: {id: string}}) => {
                                 }
                                 <div className={'flex'}>
                                 {
-                                    posts?.map(post => <Post id={post.id} text={post.text} isDeleteAble={isOwner} onDelete={deletePost_handler} />)
+                                    posts?.map(post => <Post id={post.id} text={post.text} isDeleteAble={isOwner} onDelete={deletePost_handler} key={post.id} />)
                                 }
                                 </div>
                             </div>

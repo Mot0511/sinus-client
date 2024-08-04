@@ -28,7 +28,7 @@ const News = () => {
         {
           isLoading
             ? <Loading />
-            : posts?.map(post => <Post id={post.id} text={post.text} />)
+            : posts?.map(post => <Post id={post.id} text={post.text} key={post.id} />)
         }
       </div>
     </div>
