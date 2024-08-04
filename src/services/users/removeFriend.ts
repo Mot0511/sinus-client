@@ -3,7 +3,7 @@ import Post from '../../types/post'
 
 const removeFriend = (friend_id: string, TOKEN: string) => {
     return new Promise((resolve, reject) => {
-        axios.post(`${process.env.SERVER}/auth/friends/remove/${friend_id}`, {
+        axios.post(`${process.env.NEXT_PUBLIC_BACKEND}/auth/friends/remove/${friend_id}`, {
             headers: {
                 'Authorization': `Bearer ${TOKEN}`
             }

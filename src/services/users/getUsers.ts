@@ -3,7 +3,7 @@ import axios from "axios";
 
 const getUsers = () => {
     return new Promise((resolve: (users: UserRead[]) => void, reject) => {
-        axios.get(`${process.env.SERVER}/auth/getUsers`)
+        axios.get(`${process.env.NEXT_PUBLIC_BACKEND}/auth/getUsers`)
             .then(res => {
                 resolve(res.data)
             }).catch(e => {

@@ -6,7 +6,7 @@ const login = (email: string, password: string) => {
         params.append('username', email)
         params.append('password', password)
 
-        axios.post('http://localhost:8000/auth/login', params)
+        axios.post(`${process.env.NEXT_PUBLIC_BACKEND}/auth/login`, params)
             .then(res => {
                 const TOKEN = res.data.access_token
                 resolve(TOKEN)

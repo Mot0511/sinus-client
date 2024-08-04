@@ -20,7 +20,7 @@ const Post = ({id, text, isDeleteAble, onDelete}: {id: number, text: string, isD
 
     return (
         <div className={cl.post}>
-            <img src={`${process.env.SERVER}/posts/getImage/${id}`} alt="" />
+            <img src={`${process.env.NEXT_PUBLIC_BACKEND}/posts/getImage/${id}`} alt="" />
             <div>
                 <p className={cl.username}>@{username}</p>
                 <p className={cl.caption}>{text}</p>

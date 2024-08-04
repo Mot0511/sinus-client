@@ -7,7 +7,7 @@ const addPost = (text: string, userID: string, file: any) => {
         formdata.append('text', text)
         formdata.append('user', userID)
 
-        axios.post('http://localhost:8000/posts/add', formdata, {
+        axios.post(`${process.env.NEXT_PUBLIC_BACKEND}/posts/add`, formdata, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }

@@ -8,7 +8,7 @@ const setAvatar = (userID: string, file: any) => {
         formdata.append('id', userID)
         formdata.append('avatar', file)
 
-        axios.post(`${process.env.SERVER}/auth/setAvatar`, formdata, {
+        axios.post(`${process.env.NEXT_PUBLIC_BACKEND}/auth/setAvatar`, formdata, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }

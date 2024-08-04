@@ -2,7 +2,7 @@ import axios from "axios"
 
 const addChat = (user1: string, user2: string) => {
     return new Promise((resolve, reject) => {
-        axios.post(`${process.env.SERVER}/messages/addChat/`, {
+        axios.post(`${process.env.NEXT_PUBLIC_BACKEND}/messages/addChat/`, {
             user1: user1,
             user2: user2
         })

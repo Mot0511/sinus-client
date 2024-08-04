@@ -114,7 +114,7 @@ const Profile = ({params}: {params: {id: string}}) => {
                     ? <Loading />
                     : <>
                         <div className={cl.leftColumn}>
-                            <div style={{backgroundImage: `url(${process.env.SERVER}/auth/getAvatar/${id})`}} className={cl.avatar}></div>
+                            <div style={{backgroundImage: `url(${process.env.NEXT_PUBLIC_BACKEND}/auth/getAvatar/${id})`}} className={cl.avatar}></div>
                             <div className={cl.btns}>
                                 {
                                     isOwner

@@ -5,7 +5,7 @@ import UserRead from '@/types/user'
 const Person = ({user, isInOnline, style, onClick}: {user: UserRead | undefined, isInOnline: number, style: any, onClick: () => void}) => {
     return (
         <div className={cl.item} style={style} onClick={onClick}>
-            <div className={cl.avatar} style={{backgroundImage: `url(http://localhost:8000/auth/getAvatar/${user.id})`}}></div>
+            <div className={cl.avatar} style={{backgroundImage: `url(${process.env.NEXT_PUBLIC_BACKEND}/auth/getAvatar/${user.id})`}}></div>
             <div className={cl.item__info}>
                 <p className={cl.item__name}>
                     {user?.name}

@@ -2,7 +2,7 @@ import axios from "axios"
 
 const logout = (TOKEN: string) => {
     return new Promise((resolve, reject) => {
-        axios.post('http://localhost:8000/auth/logout', {
+        axios.post(`${process.env.NEXT_PUBLIC_BACKEND}/auth/logout`, {
             headers: {
                 'Cookie': `fastapiusersauth=${TOKEN}`,
             },
