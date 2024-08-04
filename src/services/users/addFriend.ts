@@ -3,7 +3,7 @@ import Post from '../../types/post'
 
 const addFriend = (friend_id: string, TOKEN: string) => {
     return new Promise((resolve, reject) => {
-        axios.post(`${process.env.SERVER}/auth/friends/add/${friend_id}`, {
+        axios.post(`http://localhost:8000/auth/friends/add/${friend_id}`, {
             headers: {
                 'Authorization': `Bearer ${TOKEN}`
             }

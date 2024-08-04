@@ -3,7 +3,7 @@ import Post from '../../types/post'
 
 const getOnePost = (id: number) => {
     return new Promise((resolve: (post: Post) => void, reject) => {
-        axios.get(`${process.env.SERVER}/posts/getOne/${id}`)
+        axios.get(`http://localhost:8000/posts/getOne/${id}`)
             .then(res => {
                 resolve(res.data)
             })

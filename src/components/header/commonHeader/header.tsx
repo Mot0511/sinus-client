@@ -8,7 +8,7 @@ import logout from '@/services/users/logout';
 import {useRouter} from 'next/navigation'
 import getCurrentUser from '@/services/users/getCurrentUser';
 
-const CommonHeader = ({isLogined, id, logout_handler}: {isLogined: boolean, id: string | undefined, logout_handler: () => void}) => {
+const CommonHeader = ({isLogined, id, logoutHandler}: {isLogined: boolean, id: string | undefined, logoutHandler: () => void}) => {
 
     return (
         <div className={cl.header}>
@@ -21,7 +21,7 @@ const CommonHeader = ({isLogined, id, logout_handler}: {isLogined: boolean, id: 
             </ul>
             {
                 isLogined
-                    ? <button className={'blueButton'} onClick={logout_handler} style={{marginRight: '10px'}}>Выйти</button>
+                    ? <button className={'blueButton'} onClick={logoutHandler} style={{marginRight: '10px'}}>Выйти</button>
                     : <div className={cl.header__buttons}>
                         <Link href="/signin"><button className={'greenButton'} style={{marginRight: '10px'}}>Войти</button></Link>
                         <Link href="/signup"><button className={'blueButton'}>Зарегистрироваться</button></Link>

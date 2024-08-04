@@ -3,7 +3,7 @@ import UserRead from "@/types/user"
 
 const getFriends = (id: string) => {
     return new Promise((resolve: (friends: UserRead[]) => void, reject) => {
-        axios.get(`${process.env.SERVER}/auth/getFriends/${id}`)
+        axios.get(`http://localhost:8000/auth/getFriends/${id}`)
             .then(res => {
                 resolve(res.data)
             })

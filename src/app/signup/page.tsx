@@ -31,7 +31,7 @@ const Component = () => {
     const submit = () => {
         setIsLoading(true)
         if (password == repeatPassword){
-            axios.post(`${process.env.SERVER}/auth/register`, {
+            axios.post(`http://localhost:8000/auth/register`, {
                 "email": email,
                 "password": password,
                 "is_active": true,

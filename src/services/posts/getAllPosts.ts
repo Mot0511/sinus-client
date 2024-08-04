@@ -3,7 +3,7 @@ import Post from '../../types/post'
 
 const getAllPosts = () => {
     return new Promise((resolve: (posts: Post[]) => void, reject) => {
-        axios.get(`${process.env.SERVER}/posts/get/`)
+        axios.get(`http://localhost:8000/posts/get/`)
             .then(res => {
                 resolve(res.data)
             })
