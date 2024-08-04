@@ -5,7 +5,7 @@ import cl from './style.module.sass'
 import axios from 'axios'
 import Loading from '@/components/loading/loading'
 import { useRouter } from 'next/navigation'
-import addPost from '@/services/addPost'
+import addPost from '@/services/posts/addPost'
 
 const Component = ({params}: {params: {id: string}}) => {
 
