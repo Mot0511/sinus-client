@@ -121,6 +121,7 @@ const Chat = ({params}: {params: {id: string}}) => {
         <>
             {
                 companion
+                    // @ts-ignore
                     ? <Link href={`/profile/${companion.id}`}><Person user={companion} isInOnline={isInOnline ? 1 : 0} /></Link>
                     : <></>
             }
