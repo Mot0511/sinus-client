@@ -1,6 +1,6 @@
 'use client'
 
-import forgotPassword from '@/services/forgotPassword'
+import forgotPassword from '@/services/users/forgotPassword'
 import React, { useState } from 'react'
 
 const ResetPassword = () => {

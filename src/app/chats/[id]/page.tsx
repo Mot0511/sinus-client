@@ -4,14 +4,14 @@ import React, { useEffect, useState } from 'react'
 import cl from './style.module.sass'
 import Message from '@/components/message/message'
 import Person from '@/components/person/person'
-import getCurrentUser from '@/services/getCurrentUser'
+import getCurrentUser from '@/services/users/getCurrentUser'
 import { useCookies } from 'react-cookie'
 import UserRead from '@/types/user'
 import Link from 'next/link'
 import MessageType from '@/types/message'
 import getMessages from '@/services/messages/getMessages'
 import getChat from '@/services/messages/getChat'
-import getUser from '@/services/getUser'
+import getUser from '@/services/users/getUser'
 import { w3cwebsocket as W3CWebSocket } from 'websocket';
 import useWebSocket, { ReadyState } from 'react-use-websocket';
 

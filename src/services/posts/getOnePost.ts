@@ -1,9 +1,9 @@
 import axios from "axios"
-import Post from '../types/post'
+import Post from '../../types/post'
 
 const getOnePost = (id: number) => {
     return new Promise((resolve: (post: Post) => void, reject) => {
-        axios.get(`http://localhost:8000/posts/getOne/${id}`)
+        axios.get(`${process.env.SERVER}/posts/getOne/${id}`)
             .then(res => {
                 resolve(res.data)
             })

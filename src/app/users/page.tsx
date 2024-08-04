@@ -2,7 +2,7 @@
 
 import Loading from '@/components/loading/loading'
 import Person from '@/components/person/person'
-import getUsers from '@/services/getUsers'
+import getUsers from '@/services/users/getUsers'
 import UserRead from '@/types/user'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'

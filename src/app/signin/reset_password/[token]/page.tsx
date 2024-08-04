@@ -1,7 +1,7 @@
 'use client'
 
-import forgotPassword from '@/services/forgotPassword'
-import resetPassword from '@/services/resetPassword'
+import forgotPassword from '@/services/users/forgotPassword'
+import resetPassword from '@/services/users/resetPassword'
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 import { useCookies } from 'react-cookie'

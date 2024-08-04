@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import cl from './style.module.sass'
-import login from '@/services/login'
-import getUser from '@/services/getUser'
-import getOnePost from '@/services/getOnePost'
+import login from '@/services/users/login'
+import getUser from '@/services/users/getUser'
+import getOnePost from '@/services/posts/getOnePost'
 
 const Post = ({id, text, isDeleteAble, onDelete}: {id: number, text: string, isDeleteAble: boolean, onDelete: (id: number) => void | null}) => {
 
@@ -20,7 +20,7 @@ const Post = ({id, text, isDeleteAble, onDelete}: {id: number, text: string, isD
 
     return (
         <div className={cl.post}>
-            <img src={`http://localhost:8000/posts/getImage/${id}`} alt="" />
+            <img src={`${process.env.SERVER}/posts/getImage/${id}`} alt="" />
             <div>
                 <p className={cl.username}>@{username}</p>
                 <p className={cl.caption}>{text}</p>

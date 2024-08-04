@@ -1,9 +1,9 @@
 import axios from "axios"
-import Post from '../types/post'
+import Post from '../../types/post'
 
-const getPosts = (userID: string) => {
+const getAllPosts = () => {
     return new Promise((resolve: (posts: Post[]) => void, reject) => {
-        axios.get(`http://localhost:8000/posts/get/${userID}`)
+        axios.get(`${process.env.SERVER}/posts/get/`)
             .then(res => {
                 resolve(res.data)
             })
@@ -13,4 +13,4 @@ const getPosts = (userID: string) => {
     })
 }
 
-export default getPosts
+export default getAllPosts

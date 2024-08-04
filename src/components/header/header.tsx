@@ -4,9 +4,11 @@ import React, { useEffect, useState } from 'react'
 import cl from './style.module.sass'
 import Link from 'next/link'
 import { useCookies } from 'react-cookie';
-import logout from '@/services/logout';
+import logout from '@/services/users/logout';
 import {useRouter} from 'next/navigation'
-import getCurrentUser from '@/services/getCurrentUser';
+import getCurrentUser from '@/services/users/getCurrentUser';
+import CommonHeader from './commonHeader/header';
+import MobileHeader from './mobileHeader/mobileHeader';
 
 const Header = () => {
 
@@ -18,6 +20,7 @@ const Header = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [isLogined, setIsLogined] = useState<boolean>(false)
     const [id, setId] = useState<string | undefined>()
+    const [isModile, setIsMobile] = useState<boolean>(false)
 
     useEffect(() => {
         if (TOKEN){
@@ -27,33 +30,22 @@ const Header = () => {
                     setId(user.id)
                 })
         }
+
+        if (window.innerWidth <= 930){
+            setIsMobile(true)
+        }
     })
 
-    const logout_handler = () => {
+    const logoutHandler = () => {
         removeCookie('TOKEN')
         setIsLogined(false)
         router.push('/signin')
     }
 
     return (
-        <div className={cl.header}>
-            <h1><Link href={'/'}>Sinus</Link></h1>
-            <ul className={cl.menu}>
-                <li><Link href={'/'}>Новости</Link></li>
-                <li><Link href={'/users'}>Все пользователи</Link></li>
-                <li><Link href={'/chats'}>Мои чаты</Link></li>
-                <li><Link href={id ? `/profile/${id}` : '/signin'}>Моя страница</Link></li>
-            </ul>
-            {
-                isLogined
-                    ? <button className={'blueButton'} onClick={logout_handler} style={{marginRight: '10px'}}>Выйти</button>
-                    : <div className={cl.header__buttons}>
-                        <Link href="/signin"><button className={'greenButton'} style={{marginRight: '10px'}}>Войти</button></Link>
-                        <Link href="/signup"><button className={'blueButton'}>Зарегистрироваться</button></Link>
-                    </div>
-            }
-            
-        </div>
+        isModile
+            ? <MobileHeader isLogined={isLogined} id={id} logoutHandler={logoutHandler} />
+            : <CommonHeader isLogined={isLogined} id={id} logoutHandler={logoutHandler}  />
     )
 }
 export default Header

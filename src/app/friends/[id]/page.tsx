@@ -2,7 +2,7 @@
 
 import Loading from '@/components/loading/loading'
 import Person from '@/components/person/person'
-import getFriends from '@/services/getFriends'
+import getFriends from '@/services/users/getFriends'
 import UserRead from '@/types/user'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
@@ -22,7 +22,7 @@ const Users = ({params}: {params: {id: string}}) => {
                 setUsers(friends)
                 setIsLoading(false)
             })
-    }, [])
+    }, [])  
     
     return (
         <>

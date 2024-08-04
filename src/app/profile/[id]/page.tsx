@@ -5,19 +5,18 @@ import cl from './style.module.sass'
 import Link from 'next/link'
 import Post from '@/components/post/post'
 import { useRouter } from 'next/navigation'
-import getCurrentUser from '@/services/getCurrentUser'
+import getCurrentUser from '@/services/users/getCurrentUser'
 import { useCookies } from 'react-cookie'
 import UserRead from '@/types/user'
 import PostSchema from '@/types/post'
-import login from '@/services/login'
-import getUser from '@/services/getUser'
+import getUser from '@/services/users/getUser'
 import Loading from '@/components/loading/loading'
-import getPosts from '@/services/getPosts'
-import setAvatar from '@/services/setAvatar'
-import updateProfile from '@/services/updateProfile'
-import deletePost from '@/services/deletePost'
-import removeFriend from '@/services/removeFriend'
-import addFriend from '@/services/addFriend'
+import getPosts from '@/services/posts/getPosts'
+import setAvatar from '@/services/users/setAvatar'
+import updateProfile from '@/services/users/updateProfile'
+import deletePost from '@/services/posts/deletePost'
+import removeFriend from '@/services/users/removeFriend'
+import addFriend from '@/services/users/addFriend'
 import addChat from '@/services/messages/addChat'
 
 const Profile = ({params}: {params: {id: string}}) => {
@@ -47,11 +46,17 @@ const Profile = ({params}: {params: {id: string}}) => {
                 if (TOKEN) {
                     getCurrentUser(TOKEN)
                         .then(current_user => {
+                            const friends = JSON.parse(current_user.friends)
+                            if (friends.includes(user.id)){
+                                setIsFriend(true)
+                            }
                             if (user.id == current_user.id){
                                 setIsOwner(true)
                             }
                         })
                 }
+
+
                 setIsLoading(false)
             })
         
@@ -79,20 +84,17 @@ const Profile = ({params}: {params: {id: string}}) => {
     }
 
     const changeFriend = () => {
-        getCurrentUser(TOKEN)
-            .then(user => {
-                if (isFriend){
-                    removeFriend({user1: user.id, user2: id})
-                        .then(res => {
-                            setIsFriend(false)
-                        })
-                } else {
-                    addFriend({user1: user.id, user2: id})
-                        .then(res => {
-                            setIsFriend(true)
-                        })
-                }
-            })
+        if (isFriend){
+            removeFriend(id, TOKEN)
+                .then(res => {
+                    setIsFriend(false)
+                })
+        } else {
+            addFriend(id, TOKEN)
+                .then(res => {
+                    setIsFriend(true)
+                })
+        }
     }
 
     const sendMessage = () => {
@@ -112,31 +114,35 @@ const Profile = ({params}: {params: {id: string}}) => {
                     ? <Loading />
                     : <>
                         <div className={cl.leftColumn}>
-                            <div style={{backgroundImage: `url(http://localhost:8000/auth/getAvatar/${id})`}} className={cl.avatar}></div>
+                            <div style={{backgroundImage: `url(${process.env.SERVER}/auth/getAvatar/${id})`}} className={cl.avatar}></div>
+                            <div className={cl.btns}>
+                                {
+                                    isOwner
+                                        ? <>
+                                            <label className="input-file">
+                                                <input type="file" name="file" onChange={updateAvatar} accept="image/*" hidden />		
+                                                <span className="blueButton" style={{width: '100%'}}>Обновить аватар</span>
+                                            </label>
+                                            {
+                                                isEditing
+                                                    ? <button className="greenButton" onClick={saveChanges} style={{marginTop: '10px'}}>Сохранить</button>
+                                                    : <button className="blueButton" onClick={() => setIsEditing(true)} style={{marginTop: '10px'}}>Изменить профиль</button>
+                                            }
+                                        </>
+                                        : <>
+                                            <button className='greenButton' onClick={sendMessage} style={{marginBottom: '5px'}}>Написать сообщение</button>
+                                            {
+                                                !isLoading 
+                                                    ? isFriend
+                                                        ? <button className='redButton' onClick={changeFriend}>Удалить из друзей</button>
+                                                        : <button className='greenButton' onClick={changeFriend}>Добавить в друзья</button>
+                                                    : <></>
+                                            }
+                                        </>
+                                            
+                                }
+                            </div>
                             
-                            {
-                                isOwner
-                                    ? <>
-                                        <label className="input-file">
-                                            <input type="file" name="file" onChange={updateAvatar} accept="image/*" hidden />		
-                                            <span className="blueButton" style={{width: '100%'}}>Обновить аватар</span>
-                                        </label>
-                                        {
-                                            isEditing
-                                                ? <button className="greenButton" onClick={saveChanges} style={{marginTop: '10px'}}>Сохранить</button>
-                                                : <button className="blueButton" onClick={() => setIsEditing(true)} style={{marginTop: '10px'}}>Изменить профиль</button>
-                                        }
-                                    </>
-                                    : <>
-                                        <button className='greenButton' onClick={sendMessage} style={{marginBottom: '5px'}}>Написать сообщение</button>
-                                        {
-                                            isFriend
-                                                ? <button className='redButton' onClick={changeFriend}>Удалить из друзей</button>
-                                                : <button className='greenButton' onClick={changeFriend}>Добавить в друзья</button>
-                                        }
-                                    </>
-                                         
-                            }
                             
                         </div>
                         <div className={cl.rightColumn}>

@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import Post from '@/components/post/post'
 import cl from './page.module.sass'
 import PostSchema from '../types/post'
-import getAllPosts from '@/services/getAllPosts'
+import getAllPosts from '@/services/posts/getAllPosts'
 import Loading from '@/components/loading/loading'
 
 const News = () => {

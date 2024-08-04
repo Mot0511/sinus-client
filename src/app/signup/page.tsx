@@ -8,8 +8,8 @@ import { cookies } from 'next/headers'
 import Loading from '@/components/loading/loading'
 import { useRouter } from 'next/navigation'
 import { useCookies } from 'react-cookie'
-import login from '@/services/login'
-import getCurrentUser from '@/services/getCurrentUser'
+import login from '@/services/users/login'
+import getCurrentUser from '@/services/users/getCurrentUser'
 
 const Component = () => {
 
@@ -31,7 +31,7 @@ const Component = () => {
     const submit = () => {
         setIsLoading(true)
         if (password == repeatPassword){
-            axios.post('http://localhost:8000/auth/register', {
+            axios.post(`${process.env.SERVER}/auth/register`, {
                 "email": email,
                 "password": password,
                 "is_active": true,
