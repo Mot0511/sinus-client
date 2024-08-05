@@ -1,10 +1,8 @@
 import React from 'react'
 import cl from './style.module.sass'
-import Message from '@/types/message'
+import MessageType from '@/types/message'
 
-const Message = ({mess, myUsername, onDelete}: {mess: Message, myUsername: string, onDelete: (mess_id: number) => void}) => {
-
-
+const Message = ({mess, myUsername, onDelete}: {mess: MessageType, myUsername: string, onDelete: (mess_id: number) => void}) => {
 
     return (
         <div className={cl.message}>

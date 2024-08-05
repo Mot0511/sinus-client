@@ -27,6 +27,7 @@ const Users = () => {
             {
                 isLoading
                     ? <Loading />
+                    // @ts-ignore
                     : users?.map(user => <Link href={`/profile/${user.id}`} key={user.id}><Person user={user} /></Link>)
                 
             }

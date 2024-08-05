@@ -12,9 +12,11 @@ const MobileHeader = ({isLogined, id, logoutHandler}: {isLogined: boolean, id: s
 
     const drop = () => {
         if (!isDropped){
+            // @ts-ignore
             headerRef.current.style = 'height: 320px;'
             setIsDropped(true)
         } else {
+            // @ts-ignore
             headerRef.current.style = 'height: 50px;'
             setIsDropped(false)
         }
