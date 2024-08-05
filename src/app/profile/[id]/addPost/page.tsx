@@ -17,6 +17,7 @@ const Component = ({params}: {params: {id: string}}) => {
     const router = useRouter()
 
     const loadImg = () => {
+        // @ts-ignore
         const file = fileRef.current?.files.item(0)
         const reader = new FileReader()
         reader.readAsDataURL(file)
@@ -27,7 +28,7 @@ const Component = ({params}: {params: {id: string}}) => {
 
     const post = () => {
         setIsLoading(true)
-
+        // @ts-ignore
         addPost(text, userID, fileRef.current?.files.item(0))
             .then(res => {
                 router.push(`/profile/${userID}/`)

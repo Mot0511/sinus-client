@@ -152,7 +152,9 @@ const Profile = ({params}: {params: {id: string}}) => {
                                     isEditing
                                         ? <div className="block" style={{marginTop: '10px'}}>
                                             <h2>Изменение профиля</h2><br />
+                                            {/* @ts-ignore */}
                                             <input type="text" placeholder='Имя' onChange={e => setUser({...user, name: e.target.value})} value={user?.name} />
+                                            {/* @ts-ignore */}
                                             <textarea name="" id="" placeholder='Описание' onChange={e => setUser({...user, description: e.target.value})} value={user?.description}></textarea>
                                         </div>
                                         : <>
