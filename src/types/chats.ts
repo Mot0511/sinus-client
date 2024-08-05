@@ -1,5 +1,5 @@
 import UserRead from "./user";
 
-type Chats = [number, UserRead][]
+type ChatsType = [number, UserRead][]
 
-export default Chats
+export default ChatsType
