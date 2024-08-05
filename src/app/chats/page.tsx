@@ -12,6 +12,7 @@ import Link from 'next/link'
 import Loading from '@/components/loading/loading'
 import { MdDelete } from 'react-icons/md'
 import removeChat from '@/services/messages/removeChat'
+import Chats from '@/types/chats'
 
 const Chats = () => {
 
@@ -20,7 +21,7 @@ const Chats = () => {
 
     const TOKEN = cookie.TOKEN
 
-    const [chats, setChats] = useState<Chat[]>()
+    const [chats, setChats] = useState<Chats>()
     const [isLoading, setIsLoading] = useState<boolean>(true)
 
     useEffect(() => {
