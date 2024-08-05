@@ -31,6 +31,7 @@ const Users = ({params}: {params: {id: string}}) => {
                 isLoading
                     ? <Loading />
                     : users?.length
+                        // @ts-ignore
                         ? users?.map(user => <Link href={`/profile/${user.id}`} key={user.id}><Person user={user} /></Link>)
                         : <h2>Друзья отсутствуют</h2>
                 
