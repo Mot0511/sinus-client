@@ -53,7 +53,7 @@ const Chats = () => {
                 {
                     isLoading
                         ? <Loading />
-                        : chats?.map(chat => <div className={cl.chat} key={chat.id}>
+                        : chats?.map(chat => <div className={cl.chat} key={chat[0]}>
                             <Person onClick={() => {router.push(`chats/${chat[0]}`)}} style={{width: '100%'}} user={chat[1]} isInOnline={2} />
                             <button onClick={() => deleteChat(chat[0])} className='blueButton'><MdDelete /></button>
                         </div>)
