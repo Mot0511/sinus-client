@@ -1,5 +1,6 @@
 import UserRead from "./user";
 
-type Chat = [number, UserRead]
-
-export default Chat
+export default interface Chat {
+    user1: string,
+    user2: string
+}
