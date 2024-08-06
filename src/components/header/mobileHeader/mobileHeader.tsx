@@ -25,7 +25,7 @@ const MobileHeader = ({isLogined, id, logoutHandler}: {isLogined: boolean, id: s
     return (
         <div className={cl.header} ref={headerRef}>
             <div className={cl.top}>
-                <h1><Link href={'/'}>Axon</Link></h1>
+                <h1><Link href={'/'}>Pipeup</Link></h1>
                 <button className={cl.menu} onClick={drop}><IoMenu color='white' size={'35'} /></button>
             </div>
             <div className={cl.dropdown}>

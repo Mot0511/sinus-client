@@ -12,7 +12,7 @@ const CommonHeader = ({isLogined, id, logoutHandler}: {isLogined: boolean, id: s
 
     return (
         <div className={cl.header}>
-            <h1><Link href={'/'}>Axon</Link></h1>
+            <h1><Link href={'/'}>Pipeup</Link></h1>
             <ul className={cl.menu}>
                 <li><Link href={'/'}>Новости</Link></li>
                 <li><Link href={'/users'}>Все пользователи</Link></li>

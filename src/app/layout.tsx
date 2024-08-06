@@ -3,7 +3,7 @@ import "./globals.sass";
 import Header from "@/components/header/header";
 
 export const metadata: Metadata = {
-  title: "Axon",
+  title: "Pipeup",
 };
 
 export default function RootLayout({
