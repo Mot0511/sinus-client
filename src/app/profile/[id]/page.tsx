@@ -67,7 +67,7 @@ const Profile = ({params}: {params: {id: string}}) => {
     }, [])
 
     const updateAvatar = (e: any) => {
-        setAvatar(id, e.target.files.item(0))
+        setAvatar(TOKEN, e.target.files.item(0))
     }
 
     const saveChanges = () => {
@@ -79,7 +79,7 @@ const Profile = ({params}: {params: {id: string}}) => {
     }
 
     const deletePost_handler = (id: number) => {
-        deletePost(id)
+        deletePost(id, TOKEN)
         setPosts(posts?.filter(post => post.id != id))
     }
 
@@ -98,12 +98,9 @@ const Profile = ({params}: {params: {id: string}}) => {
     }
 
     const sendMessage = () => {
-        getCurrentUser(TOKEN)
-            .then(user => {
-                addChat(user.id, id)
-                    .then(chat_id => {
-                        router.push(`/chats/${chat_id}`)
-                    })
+        addChat(id, TOKEN)
+            .then(chat_id => {
+                router.push(`/chats/${chat_id}`)
             })
     }
 

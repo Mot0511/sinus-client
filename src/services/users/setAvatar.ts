@@ -1,16 +1,16 @@
 import axios from "axios"
 import Post from '../../types/post'
 
-const setAvatar = (userID: string, file: any) => {
+const setAvatar = (TOKEN: string, file: any) => {
     return new Promise((resolve, reject) => {
 
         const formdata = new FormData()
-        formdata.append('id', userID)
         formdata.append('avatar', file)
 
         axios.post(`${process.env.NEXT_PUBLIC_BACKEND}/auth/setAvatar`, formdata, {
             headers: {
-                'Content-Type': 'multipart/form-data'
+                'Content-Type': 'multipart/form-data',
+                'Authorization': `Bearer ${TOKEN}`
             }
         })
             .then(res => {

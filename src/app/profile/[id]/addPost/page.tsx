@@ -6,10 +6,15 @@ import axios from 'axios'
 import Loading from '@/components/loading/loading'
 import { useRouter } from 'next/navigation'
 import addPost from '@/services/posts/addPost'
+import { useCookies } from 'react-cookie'
 
 const Component = ({params}: {params: {id: string}}) => {
 
+    const [cookie, setCookie, removeCookie] = useCookies()
+
     const userID = params.id
+    const TOKEN = cookie.TOKEN
+    
     const fileRef = useRef(null)
     const [text, setText] = useState<string>('')
     const [image, setImage] = useState<string>('')
@@ -29,7 +34,7 @@ const Component = ({params}: {params: {id: string}}) => {
     const post = () => {
         setIsLoading(true)
         // @ts-ignore
-        addPost(text, userID, fileRef.current?.files.item(0))
+        addPost(text, TOKEN, fileRef.current?.files.item(0))
             .then(res => {
                 router.push(`/profile/${userID}/`)
                 setIsLoading(false)

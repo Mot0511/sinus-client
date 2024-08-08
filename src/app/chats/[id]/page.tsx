@@ -67,7 +67,7 @@ const Chat = ({params}: {params: {id: string}}) => {
             .then(user => {
                 setWsUrl(`ws://localhost:8000/messages/connect/${user.username}/${chat_id}`)
                 setMyUsername(user.username)
-                getChat(chat_id)    
+                getChat(chat_id, TOKEN)    
                     .then(chat => {
                         if (chat.user1 == user.id){
                             getUser(chat.user2)

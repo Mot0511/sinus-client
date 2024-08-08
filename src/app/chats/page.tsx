@@ -29,21 +29,18 @@ const Chats = () => {
             router.push('/signin')
         } else {
             setIsLoading(true)
-            getCurrentUser(TOKEN)
-                .then(user => {
-                    getChats(user.id)
-                        .then(chats => {
-                            console.log(chats)
-                            setChats(chats)
-                            setIsLoading(false)
-                        })
+            getChats(TOKEN)
+                .then(chats => {
+                    console.log(chats)
+                    setChats(chats)
+                    setIsLoading(false)
                 })
         }
     }, [])
 
     const deleteChat = (chat_id: number) => {
         setChats(chats?.filter(chat => chat[0] != chat_id))
-        removeChat(chat_id)
+        removeChat(chat_id, TOKEN)
     }
 
     return (
