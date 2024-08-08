@@ -33,7 +33,8 @@ const Component = () => {
                 getCurrentUser(TOKEN)
                     .then((user) =>  {
                         setCookie('TOKEN', TOKEN, {
-                            maxAge: 31536000
+                            maxAge: 31536000,
+                            path: '/'
                         })
                         router.push(`/profile/${user.id}`);
                         setIsLoading(false) 
