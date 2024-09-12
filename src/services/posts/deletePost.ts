@@ -1,4 +1,5 @@
 import axios from "axios"
+import { deleteFile } from "../firebase"
 
 const deletePost = (id: number, TOKEN: string) => {
     return new Promise((resolve, reject) => {
@@ -8,7 +9,10 @@ const deletePost = (id: number, TOKEN: string) => {
             }
         })
             .then(res => {
-                resolve(res)
+                deleteFile(`posts/${id}.png`)
+                    .then(res => {
+                        resolve(res)
+                    })
             })
             .catch(e => {
                 reject(e)

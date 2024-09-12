@@ -12,12 +12,12 @@ import PostSchema from '@/types/post'
 import getUser from '@/services/users/getUser'
 import Loading from '@/components/loading/loading'
 import getPosts from '@/services/posts/getPosts'
-import setAvatar from '@/services/users/setAvatar'
 import updateProfile from '@/services/users/updateProfile'
 import deletePost from '@/services/posts/deletePost'
 import removeFriend from '@/services/users/removeFriend'
 import addFriend from '@/services/users/addFriend'
 import addChat from '@/services/messages/addChat'
+import { getFileUrl, uploadFile } from '@/services/firebase'
 
 const Profile = ({params}: {params: {id: string}}) => {
 
@@ -28,6 +28,7 @@ const Profile = ({params}: {params: {id: string}}) => {
     const TOKEN = cookie.TOKEN
 
     const [user, setUser] = useState<UserRead>()
+    const [avatar, setAvatar] = useState<string>()
     const [posts, setPosts] = useState<PostSchema[]>()
     const [friendsCount, setFriendsCount] = useState<number>()
 
@@ -41,8 +42,11 @@ const Profile = ({params}: {params: {id: string}}) => {
         getUser(id)
             .then(user => {
                 setUser(user)
+                getFileUrl(`avatars/${user.id}.png`)
+                    .then((url: string) => {
+                        setAvatar(url)
+                    })
                 setFriendsCount(JSON.parse(user.friends).length)
-
                 if (TOKEN) {
                     getCurrentUser(TOKEN)
                         .then(current_user => {
@@ -53,6 +57,7 @@ const Profile = ({params}: {params: {id: string}}) => {
                             if (user.id == current_user.id){
                                 setIsOwner(true)
                             }
+                            
                         })
                 }
 
@@ -67,7 +72,15 @@ const Profile = ({params}: {params: {id: string}}) => {
     }, [])
 
     const updateAvatar = (e: any) => {
-        setAvatar(TOKEN, e.target.files.item(0))
+        const file = e.target.files.item(0)
+        const storagePath = `avatars/${user?.id}.png`
+        uploadFile(file, storagePath)
+            .then(res => {
+                getFileUrl(storagePath)
+                    .then(url => {
+                        setAvatar(url)
+                    })
+            })
     }
 
     const saveChanges = () => {
@@ -111,7 +124,7 @@ const Profile = ({params}: {params: {id: string}}) => {
                     ? <Loading />
                     : <>
                         <div className={cl.leftColumn}>
-                            <div style={{backgroundImage: `url(${process.env.NEXT_PUBLIC_BACKEND}/auth/getAvatar/${id})`}} className={cl.avatar}></div>
+                            <div style={{backgroundImage: `url(${avatar})`}} className={cl.avatar}></div>
                             <div className={cl.btns}>
                                 {
                                     isOwner
@@ -171,7 +184,7 @@ const Profile = ({params}: {params: {id: string}}) => {
                                 }
                                 <div className={'flex'}>
                                 {
-                                    posts?.map(post => <Post id={post.id} text={post.text} isDeleteAble={isOwner} onDelete={deletePost_handler} key={post.id} />)
+                                    posts?.map(post => <Post post={post} isDeleteAble={isOwner} onDelete={deletePost_handler} key={post.id} />)
                                 }
                                 </div>
                             </div>

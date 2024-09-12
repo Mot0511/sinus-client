@@ -29,7 +29,7 @@ const News = () => {
           isLoading
             ? <Loading />
             // @ts-ignore
-            : posts?.map(post => <Post id={post.id} text={post.text} isDeleteAble={false} key={post.id} />)
+            : posts?.map(post => <Post post={post} isDeleteAble={false} key={post.id} />)
         }
       </div>
     </div>
