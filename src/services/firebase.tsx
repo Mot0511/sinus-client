@@ -2,7 +2,7 @@ import { initializeApp } from "firebase/app";
 import { deleteObject, getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyDXKZ9acP6SphYYHqgADwNU4kSQj2ZtnoM",
+    apiKey: process.env.NEXT_PUBLIC_FIREBASE_APIKEY,
     authDomain: "pipeup-a17ec.firebaseapp.com",
     databaseURL: "https://pipeup-a17ec-default-rtdb.europe-west1.firebasedatabase.app",
     projectId: "pipeup-a17ec",
