@@ -27,7 +27,7 @@ const Post = ({post, isDeleteAble, onDelete}: {post: PostModel, isDeleteAble: bo
 
     return (
         <div className={cl.post}>
-            <img src={image} alt="" />
+            <div className={cl.image} style={{backgroundImage: `url(${image})`}}></div>
             <div>
                 <p className={cl.username}>@{username}</p>
                 <p className={cl.caption}>{post.text}</p>

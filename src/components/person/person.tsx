@@ -1,11 +1,24 @@
-import React from 'react'
+'use client'
+
+import React, { useEffect, useState } from 'react'
 import cl from './style.module.sass'
 import UserRead from '@/types/user'
+import { getFileUrl } from '@/services/firebase'
 
 const Person = ({user, isInOnline, style, onClick}: {user: UserRead | undefined, isInOnline: number, style: any, onClick: () => void}) => {
+
+    const [avatar, setAvatar] = useState<string>('');
+
+    useEffect(() => {
+        getFileUrl(`avatars/${user?.id}.png`)
+            .then(url => {
+                setAvatar(url)
+            })
+    }, [])
+
     return (
         <div className={cl.item} style={style} onClick={onClick}>
-            <div className={cl.avatar} style={{backgroundImage: `url(${process.env.NEXT_PUBLIC_BACKEND}/auth/getAvatar/${user?.id})`}}></div>
+            <div className={cl.avatar} style={{backgroundImage: `url(${avatar})`}}></div>
             <div className={cl.item__info}>
                 <p className={cl.item__name}>
                     {user?.name}
