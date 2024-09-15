@@ -127,29 +127,30 @@ const Profile = ({params}: {params: {id: string}}) => {
                             <div style={{backgroundImage: `url(${avatar})`}} className={cl.avatar}></div>
                             <div className={cl.btns}>
                                 {
-                                    isOwner
-                                        ? <>
-                                            <label className="input-file">
-                                                <input type="file" name="file" onChange={updateAvatar} accept="image/*" hidden />		
-                                                <span className="blueButton" style={{width: '100%'}}>Обновить аватар</span>
-                                            </label>
-                                            {
-                                                isEditing
-                                                    ? <button className="greenButton" onClick={saveChanges} style={{marginTop: '10px'}}>Сохранить</button>
-                                                    : <button className="blueButton" onClick={() => setIsEditing(true)} style={{marginTop: '10px'}}>Изменить профиль</button>
-                                            }
-                                        </>
-                                        : <>
-                                            <button className='greenButton' onClick={sendMessage} style={{marginBottom: '5px'}}>Написать сообщение</button>
-                                            {
-                                                !isLoading 
-                                                    ? isFriend
-                                                        ? <button className='redButton' onClick={changeFriend}>Удалить из друзей</button>
-                                                        : <button className='greenButton' onClick={changeFriend}>Добавить в друзья</button>
-                                                    : <></>
-                                            }
-                                        </>
-                                            
+                                    TOKEN
+                                        ? isOwner
+                                            ? <>
+                                                <label className="input-file">
+                                                    <input type="file" name="file" onChange={updateAvatar} accept="image/*" hidden />		
+                                                    <span className="blueButton" style={{width: '100%'}}>Обновить аватар</span>
+                                                </label>
+                                                {
+                                                    isEditing
+                                                        ? <button className="greenButton" onClick={saveChanges} style={{marginTop: '10px'}}>Сохранить</button>
+                                                        : <button className="blueButton" onClick={() => setIsEditing(true)} style={{marginTop: '10px'}}>Изменить профиль</button>
+                                                }
+                                            </>
+                                            : <>
+                                                <button className='greenButton' onClick={sendMessage} style={{marginBottom: '5px'}}>Написать сообщение</button>
+                                                {
+                                                    !isLoading 
+                                                        ? isFriend
+                                                            ? <button className='redButton' onClick={changeFriend}>Удалить из друзей</button>
+                                                            : <button className='greenButton' onClick={changeFriend}>Добавить в друзья</button>
+                                                        : <></>
+                                                }
+                                            </>
+                                        : <></> 
                                 }
                             </div>
                             
