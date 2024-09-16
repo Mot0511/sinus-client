@@ -65,7 +65,7 @@ const Chat = ({params}: {params: {id: string}}) => {
     useEffect(() => {
         getCurrentUser(TOKEN)
             .then(user => {
-                setWsUrl(`ws://localhost:8000/messages/connect/${user.username}/${chat_id}`)
+                setWsUrl(`wss://localhost:8000/messages/connect/${user.username}/${chat_id}`)
                 setMyUsername(user.username)
                 getChat(chat_id, TOKEN)    
                     .then(chat => {
