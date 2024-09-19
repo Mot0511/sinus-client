@@ -22,7 +22,6 @@ const Chat = ({params}: {params: {id: string}}) => {
     const TOKEN = cookies.TOKEN
     const chat_id = params.id
 
-    // const [ws, setWs] = useState<W3CWebSocket>()
     const [wsUrl, setWsUrl] = useState<string>('')
     const { sendMessage, lastMessage, readyState } = useWebSocket(wsUrl);
 
@@ -93,7 +92,7 @@ const Chat = ({params}: {params: {id: string}}) => {
             sendMessage(JSON.stringify({
                 type: 'send',
                 message: {
-                    chat: chat_id,
+                    chat: Number(chat_id),
                     user: currentUserId,
                     text: message,
                 }
