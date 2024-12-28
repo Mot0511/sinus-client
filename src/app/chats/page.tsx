@@ -23,6 +23,7 @@ const Chats = () => {
 
     const [chats, setChats] = useState<ChatsType>()
     const [isLoading, setIsLoading] = useState<boolean>(true)
+    const [username, setUsername] = useState<string>('')
 
     useEffect(() => {
         if (!TOKEN){
