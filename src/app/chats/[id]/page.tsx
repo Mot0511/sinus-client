@@ -131,7 +131,10 @@ const Chat = ({params}: {params: {id: string}}) => {
                     }
                 </div>
                 <div className={cl.controls}>
-                    <input type="text" placeholder='Сообщение' value={message} onChange={e => setMessage(e.target.value)} onKeyDown={e => e.keyCode == 13 && send_message()} />
+                    <input type="text" placeholder='Сообщение' value={message} onChange={e => setMessage(e.target.value)} onKeyDown={e => {
+                        e.preventDefault()
+                        e.keyCode == 13 && send_message()
+                    }} />
                     <button className='greenButton' onClick={send_message}>Отправить</button>
                 </div>
             </div>
